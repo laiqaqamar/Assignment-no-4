@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+
+struct Product {
+    int id;
+    std::string name;
+    // Add other product details as needed
+};
+
+std::vector<Product> inventory;
+
+void addProduct(int id, const std::string& name) {
+    Product newProduct = {id, name};
+    inventory.push_back(newProduct);
+}
+
+void removeProduct(int id) {
+    auto it = std::remove_if(inventory.begin(), inventory.end(),
+                             [id](const Product& p) { return p.id == id; });
+    inventory.erase(it, inventory.end());
+}
+
+int main() {
+    // Test the inventory management functions
+    addProduct(1, "ProductA");
+    addProduct(2, "ProductB");
+
+    std::cout << "Inventory after adding products:\n";
+    for (const auto& product : inventory) {
+        std::cout << "ID: " << product.id << ", Name: " << product.name << "\n";
+    }
+
+    removeProduct(1);
+
+    std::cout << "\nInventory after removing product with ID 1:\n";
+    for (const auto& product : inventory) {
+        std::cout << "ID: " << product.id << ", Name: " << product.name << "\n";
+    }
+
+    return 0;
+}
