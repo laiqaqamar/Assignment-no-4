@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <chrono>
+
+int main() {
+    const int size = 100000;
+    std::vector<int> data(size);
+
+    // Initialize vector in descending order
+    for (int i = size - 1; i >= 0; --i) {
+        data[i] = i;
+    }
+
+    // Measure time for Bubble Sort
+    auto bubbleSortStart = std::chrono::high_resolution_clock::now();
+    // Implement Bubble Sort algorithm here
+    auto bubbleSortEnd = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> bubbleSortTime = bubbleSortEnd - bubbleSortStart;
+
+    // Measure time for STL sort
+    auto stlSortStart = std::chrono::high_resolution_clock::now();
+    std::sort(data.begin(), data.end());
+    auto stlSortEnd = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> stlSortTime = stlSortEnd - stlSortStart;
+
+    // Print execution time
+    std::cout << "Bubble Sort Execution Time: " << bubbleSortTime.count() << " seconds\n";
+    std::cout << "STL Sort Execution Time: " << stlSortTime.count() << " seconds\n";
+
+    // Print first 10 and last 10 integers
+    std::cout << "First 10 integers: ";
+    for (int i = 0; i < 10; ++i) {
+        std::cout << data[i] << " ";
+    }
+
+    std::cout << "\nLast 10 integers: ";
+    for (int i = size - 10; i < size; ++i) {
+        std::cout << data[i] << " ";
+    }
+
+    return 0;
+}
